@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Editor</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/viewer.css') }}">
+</head>
+<body>
+<header>
+	<div class="d-header">
+		<div>
+			<div class="mouse-over">
+				<a href="/" class="mouse-over" target="_blank">
+					<span>Visit The Website</span>
+				</a>
+			</div>
+		</div>
+		<br>
+	</div>
+</header>
+	<div>
+		<div class="categories">
+			<span>categories</span>
+			<hr>
+			
+			<ul>
+				{% for row in rows %}
+				<li>
+					<label>
+						<input type="checkbox" name="cat" value="{{ row[0] }}" class="class">
+						{{ row[1] }}
+					</label>
+				</li>
+				{% endfor %}
+			</ul>
+			<input type="text" name="new-class" id="new-class">
+			<button id="add-class">add</button>
+		</div>
+	
+		<form class="article-comp">
+			<div class="editing-main">
+				<div>Title
+					{% if page == 'edit' %}
+					<input type="text" name="title" id="title" value="{{ article['row'][1] }}">
+					{% else %}
+					<input type="text" name="title" id="title">
+					{% endif %}
+				</div>
+				<br>
+				<div>Main Image
+					<input type="file" name="main-img" id="main_img" onchange="mainUrl(this);">
+				</div>
+				<br>
+				<div id="main-img-view">
+					{% if page == 'edit' %}
+					<img src="{{ article['row'][2] }}" class="main_img">
+					{% endif %}
+				</div>
+				<br>
+				<div>sub Image
+					<input type="file" name="sub-img" id="sub_img" onchange="subUrl(this);">
+				</div>
+				<br>
+				<div id="sub-imgs-view">
+					{% if page == 'edit' %}
+					{% for image in article['sub_imgs'] %}
+					<img src="{{ image }}" class="sub_img">
+					{% endfor %}
+					{% endif %}
+				</div>
+				{% if page == 'edit' %}
+				<button class="publish" onclick="update();" type="button">update</button>
+				{% else %}
+				<button class="publish" onclick="publish();" type="button">publish</button>
+				{% endif %}
+			</div>
+			<br>
+			<div class="editing-items">
+				<button type="button" id="add-italic"><em>I</em></button>
+				<button type="button" id="add-bold"><b>B</b></button>
+				<button type="button" id="show">link</button>
+				<button type="button" id="view">view</button>
+				<br>
+				{% if page == 'edit' %}
+				<textarea name="content" id="content">{{ article['row'][3] }}</textarea>
+				{% else %}
+				<textarea name="content" id="content"></textarea>
+				{% endif %}
+			</div>
+		</form>
+	</div>
+	<br>
+	<div id="view-test"></div>
+	<div id="add-link">
+		  <div>
+		    <label>link title
+		    <input type="text" name="title" id="title-link">
+		    </label>
+		  </div>
+		  <div>
+		    <label>the link
+		    <input type="text" name="link" id="the-link">
+		    </label>
+		  </div>
+	</div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/viewer.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-viewer.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script type="text/javascript" >
+
+{% if page == 'edit' %}
+$('.categories').ready(function(){
+	var classes = {{ article['classes']|safe }};
+	for (var i = 0; i < classes.length; i++) {
+		var class_ = classes[i];
+		$(this).find('li :input[value=' + class_[0] + ']').attr('checked','checked');
+	}
+});
+{% endif %}
+
+
+
+{% if page == 'edit' %}
+function update() {
+	url = '/admin/editor/update-article/'
+
+	var title = $('#title').val();
+	var title_json = JSON.stringify(title);
+	// console.log(title_json);
+
+	var main_img = $('#main-img-view').find('img').map(function(){
+		return $(this).attr('src');
+	}).get();
+	var main_img_json = JSON.stringify(main_img);
+	// console.log(main_img_json);
+
+	var sub_imgs = $('#sub-imgs-view').find('img').map(function(){
+		return $(this).attr('src');
+	}).get();
+	var sub_img_json = JSON.stringify(sub_imgs);
+	// console.log(sub_img_json);
+
+	var content = $('#content').val();
+	var content_json = JSON.stringify(content);
+	// console.log(content_json);
+
+	var classes = $('.class:checked').map(function(){
+      return $(this).val();
+    }).get();
+    var classes_json = JSON.stringify(classes);
+	// console.log(classes_json);
+
+	data = {
+		'title': title,
+		'main-img': main_img,
+		'sub-imgs': sub_imgs,
+		'article': content,
+		'article_id': {{ article['row'][0] }},
+		'class': classes
+	};
+
+	postData(data, url, the_succ);
+}
+{% endif %}
+
+
+
+</script>
+</body>
+</html>

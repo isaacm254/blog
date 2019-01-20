@@ -1,0 +1,57 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<h1>Welcome To Admin Panel!</h1>
+{% if current_user|string == '<admins 1>' %}
+<div>
+	<span>hash password</span>
+	<input type="password" name="password" id="password">
+	<br>
+	<button type="button" onclick="hash()">hash</button>
+</div>
+<div id="hashed" onclick="copyToClipboard(this)"></div>
+{% endif %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript">
+function postData(data, url, successFunction){
+	$.ajax({
+	   url: url,
+	   data: JSON.stringify(data),
+	   contentType: "application/json; charset=utf-8",
+	   error: function(error) {
+	      console.log(error);
+	   },
+	   dataType: 'json',
+	   success: function(rec_data) {
+	      successFunction(rec_data);
+	   },
+	   type: 'POST'
+	});
+
+}
+
+function hash(){
+	var password = $('#password').val();
+	var url = '/document/hash/';
+	var data = {
+		'password': password
+	}
+	postData(data, url, login_response);
+
+}
+
+function login_response(response){
+	console.log(response.password)
+	$('#hashed').text(response.password)
+		// window.location.href = "/admin/";
+}
+
+function copyToClipboard(caller) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(caller).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+</script>
+{% endblock %}

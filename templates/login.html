@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LogIn</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<p class="message" id="message"></p>
+<form class="the-form" method="POST" action="/login/">
+	<div>
+		<span>UserName</span>
+		<input type="text" name="username">
+	</div>
+	<br>
+	<div>
+		<span>Password</span>
+		<input type="password" name="password">
+	</div>
+	<button>Confirm</button>
+</form>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+</body>
+</html>

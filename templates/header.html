@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>dr.salwa blog</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header>
+	<div class="header">
+		<div>
+			<div class="mouse-over">
+				<a href="{{ url_for('index') }}" class="mouse-over">
+					<span>الرئيسية</span>
+				</a>
+			</div>
+			<div class="mouse-over">
+				<a href="{{ url_for('categories') }}" class="mouse-over">
+					<span>Categories</span>
+				</a>
+			</div>
+			<div class="mouse-over">
+				<a href="{{ url_for('about') }}" class="mouse-over">
+					<span>عن</span>
+				</a>
+			</div>
+		</div>
+		<br>
+		<div id="form1">
+			<input type="text" name="search">
+			<button onclick="search(this);" type="button">بحث</button>
+		</div>
+	</div>
+</header>
+<div>
+	{% block content %}
+	{% endblock %}
+	{% block categ %}
+	<div class="categories">
+		<span>categories</span>
+		<hr>
+		
+		<ul>
+			{% for row in categs %}
+			<li>
+				<label>
+					<input type="checkbox" name="cat" value="{{ row[1] }}" class="class">
+					{{ row[1] }}
+				</label>
+			</li>
+			{% endfor %}
+		</ul>
+		
+	</div>
+	<br>
+	{% endblock %}
+	{% block newest %}
+	
+	<div class="newest">
+		<span>الأحدث</span>
+		<hr>
+		<ul>
+			{% for row in newest_rows %}
+			<li>
+				<a href="{{ '/categories/' + row['row'][0]|string + '/' }}">
+				<p>{{ row['row'][1] }}</p>
+				</a>
+				<span>{{ row['row'][5] }}</span>
+				<br>
+				<img src="{{ row['row'][2] }}">			
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<br>
+	{% endblock %}
+	{% block most %}
+	
+	<div class="most-read">
+		<span>الأكثر قراءة</span>
+		<hr>
+		<ul>
+			{% for row in most_readed_rows %}
+			<li>
+				<a href="{{ '/categories/' + row['row'][0]|string + '/' }}">
+				<p>{{ row['row'][1] }}</p>
+				</a>
+				<span>{{ row['row'][5] }}</span>
+				<br>
+				<img src="{{ row['row'][2] }}">				
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	{% endblock %}
+	<footer style="position: relative;
+  bottom: 0; width: 200px;height: 50px;">created by <a href="https://www.facebook.com/maro25488" target="_blank" style="color: blue; text-decoration: underline;">isaac mudather</a></footer>
+<div class="loading-data">Loading Please Wait......</div>
+<div class="modal"></div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/viewer.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-viewer.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.cookie.js') }}"></script>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '1445102535622487',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v3.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
+<script type="text/javascript">
+
+function appendArticles(response) {
+	if (response.message.length != 0) {
+	for (var i = 0; i < response.message.length; i++) {
+	var row = response.message[i];
+	if (response.page == 'article') {
+		increase_reads(row.row[0]);
+	}
+	var article = '<div>\
+	<span style="position: relative; margin-top: -200px; font-size: 15px;">readings : ' + row.readings + '<span>\
+		<div class="options" onclick="showOptions(this)">\
+			<img src="{{ url_for("static", filename="img/options.png") }}">\
+			<ul class="ul">\
+				{% if current_user.is_authenticated %}\
+				<li class="mouse-over" onmouseover="mouseover(this);" onmouseleave="mouseleave(this);" onclick="editArticle(this);">\
+					<a href="#" class="mouse-over" name="' + row.row[0] + '" onmouseover="mouseover(this);" onmouseleave="mouseleave(this);">edit post</a>\
+				</li>\
+				<li class="mouse-over" onmouseover="mouseover(this);" onmouseleave="mouseleave(this);" onclick="deleteArticle(this);">\
+					<a href="#" class="mouse-over" name="' + row.row[0] + '" onmouseover="mouseover(this);"\ onmouseleave="mouseleave(this);">delete post</a>\
+				</li>\
+				{% endif %}\
+				<li class="mouse-over" onmouseover="mouseover(this);" onmouseleave="mouseleave(this);" onclick="sharingToFacebook();">\
+					<a href="#" class="mouse-over" name="' + row.row[0] + '" onmouseover="mouseover(this);" \ onmouseleave="mouseleave(this);">شارك على الفيس بوك</a>\
+				</li>\
+				<li class="mouse-over" onmouseover="mouseover(this);" onmouseleave="mouseleave(this);" onclick="sharingToTwitter();">\
+					<a href="#" class="mouse-over" name="' + row.row[0] + '" onmouseover="mouseover(this);" \ onmouseleave="mouseleave(this);">شارك على تويتر</a>\
+				</li>\
+				<li class="mouse-over" onmouseover="mouseover(this);" onmouseleave="mouseleave(this);">\
+					<a href="#" class="mouse-over" onmouseover="mouseover(this);" onmouseleave="mouseleave(this);">إلغاء</a>\
+				</li>\
+			</ul>\
+		</div>\
+		<div>\
+			<a href="#" class="mouse-over title" name="' + row.row[0] + '" onclick="showArticle(this);">\
+			<h3>' + row.row[1] + '</h3>\
+			</a>\
+			<div>' + addClasses(row.classes) + '</div>\
+			<br>\
+			<span class="article-date" style="position: relative; margin-top: -200px; font-size: 15px;">' + fixing_date(row.row[5]) + '</span>\
+			<br>\
+			<div style="width: 750px;height: 300px;">\
+			<img src="'+ row.row[2] + '" alt="article picture" style="max-width: 100%; max-height: 100%;">\
+			<div id="sub_imgs_view">' + addSubImgs(row.sub_imgs) + '</div>\
+			</div>\
+		</div>\
+		<br>\
+		<div>\
+		'+ the_parag(row.row[3])+'\
+		</div>\
+	</div>'
+	$('.articles-group').append(article);
+	if (i != response.message.length - 1) {
+		$('.articles-group').append('<hr>');
+	}
+	$('.loading-data').fadeOut();
+	$body.removeClass('loading');
+}
+}else{
+	$('.articles-group').append('<p style="text-align: center;" name="' + response.page + '">there is no data</p>');
+	$body.removeClass('loading');
+	$('.loading-data').fadeOut();
+}
+}
+
+{% if current_user.is_authenticated %}
+function editArticle(caller) {
+  var id = $(caller).find('a').attr('name');
+  location.replace('/admin/editor/'+id);
+}
+
+function deleteArticle(caller) {
+  var id = $(caller).find('a').attr('name');
+  location.replace('/admin/editor/delete-article/'+id);
+}
+</script>
+{% endif %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/ajax/ajax.js') }}"></script>
+
+</div>
+</body>
+</html>

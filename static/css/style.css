@@ -1,0 +1,309 @@
+
+body {
+	background-color: #f7f7f7;
+}
+
+div {
+    width: -moz-fit-content;
+    display: inline-block;
+    font-family: Bodoni MT;
+    font-size: 20px;
+    margin: 5px;
+}
+
+button {
+	border-radius: 5px;
+	background-color: #f7f7f7;
+	cursor: pointer;
+}
+a {
+	text-decoration: none;
+	color: black;
+	direction: rtl;
+}
+
+ul {
+	list-style: none;
+}
+
+img {
+	max-width: 100%;
+    max-height: 100%;
+}
+
+p {
+	direction: rtl;
+}
+
+span, h3 {
+	direction: rtl;
+}
+
+.header {
+	width: 800px;
+	height: 120px;
+	margin-left: 18%;
+	box-shadow: 0px 0px 5px;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+.header > div, .header > form, .d-header > div {
+	margin-top: 13px;
+	margin-left: 50px;
+}
+
+.header > div > div, .d-header > div > div, .article_classes {
+	border-radius: 10px;
+	box-shadow: 0px 0px 5px;
+	padding: 0px 5px;
+}
+.most-read, .newest {
+	box-shadow: 0px 0px 5px;
+	border-radius: 5px;
+	height: 500px;
+	width: 200px;
+	overflow: auto;
+	background-color: #fff;
+	
+}
+
+.categories {
+	box-shadow: 0px 0px 5px;
+	border-radius: 5px;
+	height: 200px;
+	width: 200px;
+	overflow: auto;
+	background-color: #fff;
+
+}
+
+
+.most-read > ul, .newest > ul, .categories > ul {
+	list-style: none;
+}
+
+.most-read > ul > li > img, .newest > ul > li > img {
+	width: 50px;
+	height: 50px;
+}
+
+.most-read > ul > li > span, .articles-group > div > div > span, .newest > ul > li > span, 
+.categories > div > div > span, .article > div > div > span {
+	font-size: 15px;
+}
+
+.most-read > ul > li, .newest > ul > li, .categories > ul > li {
+	margin-left: -20px;
+}
+
+.articles-group {
+	width: 800px;
+	box-shadow: 0px 0px 1px;
+	border-radius: 5px;
+	background-color: #fff;
+	margin-left: 220px;
+	position: absolute;
+	float: right;
+}
+
+.article {
+	width: 800px;
+	box-shadow: 0px 0px 1px;
+	border-radius: 5px;
+	background-color: #fff;
+	margin-left: 220px;
+	position: absolute;
+	float: right;
+}
+
+.article-main-pic, .main_img_view {
+	width: 750px;
+	height: 350px;
+}
+
+.article-sub-pic {
+	width: 256px;
+	height: 215px;
+}
+
+footer {
+	box-shadow: 0px 0px 5px;
+	border-radius: 5px;
+	height: 40px;
+	background-color: #fff;
+}
+
+footer > div {
+	margin-top: -15px;
+}
+
+textarea {
+  resize: none;
+  width: 500px;
+  height: 600px;
+  border-radius: 5px;
+  direction: rtl;
+}
+
+.article-comp {
+	box-shadow: 0px 0px 5px;
+	border-radius: 5px;
+	background-color: #fff;
+	float: right;
+	display: flex;
+  	justify-content: center;
+}
+
+#view-test {
+	width: 700px;
+	height: 500px;
+	box-shadow: 0px 0px 5px;
+	border-radius: 5px;
+	background-color: #fff;
+	overflow: auto;
+	margin-left: 25%;
+}
+
+.editing-items {
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px;
+}
+
+.editing-main > div {
+	margin-bottom: 30px;
+}
+
+.main_img {
+	width: 240px;
+	height: 90px;
+}
+
+.sub_img {
+	width: 50px;
+	height: 50px;
+}
+
+#sub-imgs-view, #main-imgs-view, #video {
+	width: 250px;
+	height: 100px;
+	overflow: auto;
+}
+
+.sub_img_view {
+	width: 215px;
+	height: 215px;
+}
+
+.d-header {
+	width: 800px;
+	height: 60px;
+	margin-left: 18%;
+	box-shadow: 0px 0px 5px;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+.options {
+	float: right;
+	position: relative;
+	margin-left: 650px;
+	cursor: pointer;
+}
+
+.options > ul{
+    display: none;
+    margin-left: -40px;
+    position: absolute;
+    list-style: none;
+    box-shadow: 0px 0px 1px;
+    width: 200px;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 5px;
+    z-index: 1;
+}
+
+.options > img {
+	width: 35px;
+	height: 20px;
+}
+
+.its-over, .message {
+	background-color: red;
+	color: #fff;
+	text-decoration: none;
+}
+
+.mouse-over {
+	cursor: pointer;
+}
+
+.mouse-over {
+	text-decoration: none;
+	color: black;
+}
+
+.cat-btn {
+	margin-left: 30%;
+}
+
+.publish {
+	margin-left: -110px;
+}
+
+.the-form {
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px;
+	background-color: #fff;
+	width: 400px;
+	margin-left: 30%;
+	margin-top: 20%;
+	padding-right: 40px;
+}
+
+.the-form > button {
+	margin-left: 160px;
+	margin-bottom: 10px;
+}
+
+.the-form > div  {
+	float: right;
+	margin-bottom: 20px;
+}
+
+
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+/*http://i.stack.imgur.com/FhHRx.gif*/
+body.loading .modal {
+    overflow: hidden;   
+}
+
+body.loading .modal {
+    display: block;
+}
+
+.loading-data{
+	display:none;
+	width: 100%;
+	padding:5px 10px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+	color:white;
+	background: rgba(0,0,23,0.71);
+	box-shadow: 0 0 10px black;	
+}
