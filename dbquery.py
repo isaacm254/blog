@@ -1,6 +1,7 @@
 import pymysql
 
 
+
 class Operations:
     def __init__(self):
         self.connection = pymysql.connect(host="localhost", user="root", password="", database="DrSalwaBlog")
