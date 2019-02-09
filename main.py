@@ -12,6 +12,7 @@ import pymysql
 from ex_operations import *
 from flask_login import UserMixin , LoginManager, current_user, login_user, logout_user
 
+
 # folder of photos that uploaded
 UPLOAD_FOLDER = './uploads/'
 
