@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 import os
 from main import app
 
+
 SECRET = 'FNWUI34HRF734BU9FGB498CBRIFU6uhghfg6'
 
 def hash_password(password):
